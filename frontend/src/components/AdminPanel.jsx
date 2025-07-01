@@ -5,7 +5,7 @@ function AdminPanel() {
   // Configure API base URL based on environment
   // In production, use relative URLs since frontend and backend are served from same domain
   const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? '/api'  // Relative URL - no CORS issues
+    ? 'https://flipr-fullstack-app.onrender.com/api'  // Relative URL - no CORS issues
     : 'http://localhost:5000/api';
 
   const [credentials, setCredentials] = useState({ username: '', password: '' });
