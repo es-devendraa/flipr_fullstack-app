@@ -5,7 +5,7 @@ import ClientsSection from './components/ClientsSection.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import Newsletter from './components/Newsletter.jsx';
 import AdminPanel from './components/AdminPanel.jsx';
-import Navbar from './components/NavBar.jsx';
+import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 
 const LandingPage = () => {
