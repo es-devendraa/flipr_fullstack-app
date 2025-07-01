@@ -3,9 +3,13 @@ import axios from 'axios';
 
 function ClientsSection() {
   const [clients, setClients] = useState([]);
+  // Define API_BASE_URL to match AdminPanel.jsx
+  const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? '/api'  // Relative URL for monolith on Render
+    : 'http://localhost:5000/api';
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/clients')
+    axios.get(`${API_BASE_URL}/clients`)
       .then((response) => setClients(response.data))
       .catch((error) => console.error('Error fetching clients:', error));
   }, []);

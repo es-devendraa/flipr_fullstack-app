@@ -4,11 +4,14 @@ import axios from 'axios';
 function Newsletter() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? '/api'  // Relative URL for monolith on Render
+    : 'http://localhost:5000/api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/subscriptions', { email });
+      await axios.post(`${API_BASE_URL}/subscriptions`, { email });
       setMessage('Subscribed successfully!');
       setEmail('');
     } catch (error) {

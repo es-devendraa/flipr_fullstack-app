@@ -4,6 +4,9 @@ import axios from 'axios';
 function ContactForm() {
   const [formData, setFormData] = useState({ fullName: '', email: '', mobileNumber: '', city: '' });
   const [message, setMessage] = useState('');
+  const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? '/api'  // Relative URL for monolith on Render
+    : 'http://localhost:5000/api';
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -12,7 +15,7 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/contacts', formData);
+      await axios.post(`${API_BASE_URL}/contacts`, formData);
       setMessage('Thank you for your submission!');
       setFormData({ fullName: '', email: '', mobileNumber: '', city: '' });
     } catch (error) {

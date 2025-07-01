@@ -3,9 +3,12 @@ import axios from 'axios';
 
 function ProjectsSection() {
   const [projects, setProjects] = useState([]);
+  const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? '/api'  // Relative URL for monolith on Render
+    : 'http://localhost:5000/api';
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/projects')
+    axios.get(`${API_BASE_URL}/projects`)
       .then(response => setProjects(response.data))
       .catch(error => console.error('Error fetching projects:', error));
   }, []);
