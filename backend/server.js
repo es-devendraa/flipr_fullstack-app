@@ -10,9 +10,12 @@ const app = express();
 
 // Middleware
 app.use(cors({ 
-  origin: process.env.NODE_ENV === 'production' 
-    ? process.env.FRONTEND_URL || 'https://your-frontend-domain.com'
-    : 'http://localhost:5173' 
+  origin: [
+    'http://localhost:5173',
+    'https://flipr-fullstack-app.onrender.com',
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
+  credentials: true
 }));
 app.use(express.json());
 

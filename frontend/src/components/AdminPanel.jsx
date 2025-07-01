@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function AdminPanel() {
+  // Configure API base URL based on environment
+  // In production, use relative URLs since frontend and backend are served from same domain
+  const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? '/api'  // Relative URL - no CORS issues
+    : 'http://localhost:5000/api';
+
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [message, setMessage] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -33,7 +39,7 @@ function AdminPanel() {
 
   const fetchData = async (type) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/${type}`, {
+      const response = await axios.get(`${API_BASE_URL}/${type}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       switch (type) {
@@ -62,7 +68,7 @@ function AdminPanel() {
     e.preventDefault();
     console.log('Register data:', credentials);
     try {
-      await axios.post('http://localhost:5000/api/admin/register', credentials);
+      await axios.post(`${API_BASE_URL}/admin/register`, credentials);
       setMessage('Registration successful. Please log in.');
       setIsRegistering(false);
     } catch (error) {
@@ -73,7 +79,7 @@ function AdminPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/login', credentials);
+      const response = await axios.post(`${API_BASE_URL}/admin/login`, credentials);
       localStorage.setItem('token', response.data.token);
       setMessage(response.data.message);
       setIsAuthenticated(true);
@@ -86,8 +92,8 @@ function AdminPanel() {
     e.preventDefault();
     try {
       const url = formData._id
-        ? `http://localhost:5000/api/${selectedType}/${formData._id}`
-        : `http://localhost:5000/api/${selectedType}`;
+        ? `${API_BASE_URL}/${selectedType}/${formData._id}`
+        : `${API_BASE_URL}/${selectedType}`;
       const method = formData._id ? 'put' : 'post';
 
       if (selectedType === 'contacts' || selectedType === 'subscriptions') {
@@ -138,7 +144,7 @@ function AdminPanel() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/${selectedType}/${id}`, {
+      await axios.delete(`${API_BASE_URL}/${selectedType}/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchData(selectedType);
