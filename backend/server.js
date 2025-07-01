@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const cloudinary = require('cloudinary').v2;
 const projectRoutes = require('./routes/projects');
+const path = require('path');  // <== MISSING IMPORT, THIS FIXES YOUR ERROR
 
 dotenv.config();
 const app = express();
