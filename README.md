@@ -5,7 +5,11 @@ This is a full-stack web application built with React for the frontend, Node.js 
 
 ## Features
 - **Landing Page**: Displays projects and clients, with forms for contact submissions and newsletter subscriptions.
+- ![App Screenshot](./frontend/public/home-my-projects.png)
+
 - **Admin Panel**: Secure interface to add, edit, and delete projects, clients, contacts, and subscriptions.
+- ![App Screenshot](./frontend/public/admin-panel.png)
+
 
 ## URLs
 - **Main URL**: [https://flipr-fullstack-app.onrender.com/](https://flipr-fullstack-app.onrender.com/)
